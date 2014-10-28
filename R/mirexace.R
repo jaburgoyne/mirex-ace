@@ -64,12 +64,15 @@ ReadACEResults <- function (results.directory, analysis) {
                             weights = duration))
                     $algorithm,
                     decreasing = TRUE)])})
+    contrasts(results$algorithm) <- contr.sum(levels(results$algorithm))
     ## Add rank information to support old-style analysis.
     results <- within(results, {
         performance.rank <- rep(NA, length(performance))
         for (group in levels(song))
             performance.rank[song==group] <- rank(performance[song==group])
         rm(group)})
+    ## Sort results for geeglm().
+    results <- results[order(results$song), ] 
     results}
 
 EvaluateACE <- function (
