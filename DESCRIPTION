@@ -6,10 +6,10 @@ Authors@R: person(
     email = "j.a.burgoyne@uva.nl",
     role = c("aut", "cre"))
 Description: Provides functions to evaluate audio chord estimation results from
-    MIREX, based on John Ashley Burgoyne, Bas de Haas, and Johan Pauwels, 'On 
+    MIREX, based on John Ashley Burgoyne, Bas de Haas, and Johan Pauwels, 'On
     Comparative Statistics for Labelling Tasks: What Can We Learn from MIREX ACE
-    2013?', in Proceedings of the 15th International Society for Music 
-    Information Retrieval Conference (Taipei, Taiwan, 2014). 
+    2013?', in Proceedings of the 15th International Society for Music
+    Information Retrieval Conference (Taipei, Taiwan, 2014).
 License: GPL-3
 Depends:
     R (>= 3.1.1),

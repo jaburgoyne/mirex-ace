@@ -1,10 +1,9 @@
+#' MIREX ACE results for a particular chord vocabulary or segmentation
+#' 
+#' @param results.directory directory containing the results in Johan
+#'                          Pauwels's output format
+#' @param analysis chord vocabulary or segmentation to load
 ReadACEResults <- function (results.directory, analysis) {
-    #' MIREX ACE results for a particular chord vocabulary or segmentation
-    #' 
-    #' @param results.directory directory containing the results in Johan
-    #'                          Pauwels's output format
-    #' @param analysis chord vocabulary or segmentation to load
-    #'
     is.segmentation <- analysis == "Segmentation"
     path <- ""
     col.names <- c()
@@ -75,6 +74,13 @@ ReadACEResults <- function (results.directory, analysis) {
     results <- results[order(results$song), ] 
     results}
 
+#' MIREX ACE evaluation for a particular chord vocabulary or segmentation
+#' 
+#' @param results.directory directory containing the results in Johan
+#'                          Pauwels's output format
+#' @param analysis chord vocabulary or segmentation to load
+#' @param old.style whether to use old-style (Friedman) evaluation
+#' @param adjust correction method for multiple comparisons (see 'p.adjust')
 EvaluateACE <- function (
     results.directory,
     analysis = c(
@@ -85,14 +91,6 @@ EvaluateACE <- function (
         "Segmentation"),
     old.style = FALSE,
     adjust = "fdr") {
-    #' MIREX ACE evaluation for a particular chord vocabulary or segmentation
-    #' 
-    #' @param results.directory directory containing the results in Johan
-    #'                          Pauwels's output format
-    #' @param analysis chord vocabulary or segmentation to load
-    #' @param old.style whether to use old-style (Friedman) evaluation
-    #' @param adjust correction method for multiple comparisons (see 'p.adjust')
-    #'
     analysis <- match.arg(analysis)
     results <- ReadACEResults(results.directory, analysis)
     if (old.style) {
