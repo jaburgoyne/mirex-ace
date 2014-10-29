@@ -27,10 +27,15 @@
     ## Compute weighted correlation.
     t(w*a) %*% b / sqrt(colSums(w * a**2) %*% t(colSums(w * b**2)))}
 
-#' Correlation matrix of algorithm performance for MIREX ACE.
+#' Correlation Matrix for ACE Algorithm Performance
 #'
-#' Correlations appear in the lower triangle and p-values appear in the 
-#' upper triangle, corrected for multiple comparisons.
+#' \code{ACECor} returns the inter-correlation matrix of algorithm
+#' performance for a MIREX ACE evaluation. Correlations appear in the
+#' lower triangle and p-values appear in the upper triangle, corrected
+#' for multiple comparisons.
+#'
+#' @param mirexace a \code{mirexace} object
+#' @export
 ACECor <- function(mirexace) {
     cor.ace <- with(mirexace$model$data, {
         if (mirexace$old.style) {
@@ -55,8 +60,13 @@ ACECor <- function(mirexace) {
             cov2cor(.contrasts. %*% .vcov.[-1, -1] %*% t(.contrasts.))}})
     .PCorr(cor.ace, nlevels(mirexace$model$data$song), mirexace$adjust)}
 
-#' Plots a hierarchical clustering of MIREX ACE algorithms based on their
-#' correlations in performance.
+#' Hierarchical Clustering of ACE Algorithms
+#'
+#' \code{PlotACEClust} plots a hierarchical clustering of MIREX ACE
+#' algorithms based on their inter-correlations in performance.
+#'
+#' @param mirexace a \code{mirexace} object
+#' @export
 PlotACEClust <- function(mirexace, ...) {
     plot(hclust(as.dist((1 - ACECor(mirexace))/2)),
          main="", sub="",

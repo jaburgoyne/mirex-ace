@@ -1,8 +1,13 @@
-#' MIREX ACE results for a particular chord vocabulary or segmentation
+#' Read MIREX ACE Results
+#'
+#' \code{ReadACEResults} reads MIREX audio chord estimation results
+#' for a particular chord vocabulary or segmentation from the output
+#' of Johan Pauwels's evaluation scripts.
 #' 
 #' @param results.directory directory containing the results in Johan
 #'                          Pauwels's output format
 #' @param analysis chord vocabulary or segmentation to load
+#' @export
 ReadACEResults <- function (results.directory, analysis) {
     is.segmentation <- analysis == "Segmentation"
     path <- ""
@@ -74,13 +79,18 @@ ReadACEResults <- function (results.directory, analysis) {
     results <- results[order(results$song), ] 
     results}
 
-#' MIREX ACE evaluation for a particular chord vocabulary or segmentation
+#' MIREX ACE Evaluation
+#'
+#' \code{EvaluateACE} runs a comparative evaluation of MIREX audio
+#' chord estimation results for a particular chord vocabulary or
+#' segmentation from the output of Johan Pauwels's evaluation scripts.
 #' 
 #' @param results.directory directory containing the results in Johan
 #'                          Pauwels's output format
 #' @param analysis chord vocabulary or segmentation to load
 #' @param old.style whether to use old-style (Friedman) evaluation
-#' @param adjust correction method for multiple comparisons (see 'p.adjust')
+#' @param adjust correction method for multiple comparisons (see \code{p.adjust})
+#' @export
 EvaluateACE <- function (
     results.directory,
     analysis = c(
@@ -135,15 +145,16 @@ EvaluateACE <- function (
 
 summary.mirexace <- print # Summary would undo the choice of adjustment method.
 
+#' CLDs and Boxplots for ACE Performance
+#' 
+#' Plots a compact letter display with weighted response boxplots for
+#' MIREX ACE results.
+#'
+#' @param level significance level for compact letter display
+#' @export
 plot.mirexace <- function(x, level = .005, ...) {
-    #' Plot a compact letter display  with weighted response boxplots for
-    #' MIREX ACE results.
-    #'
-    #' @param level significance level for compact letter display
-    #'
-    #' Adapted from plot.cld() in version 1.3 of the multcomp package (T.
-    #' Hothorn, F. Bretz & P. Westfall, 2014).
-    #'
+    ## Adapted from plot.cld() in version 1.3 of the multcomp package
+    ## (T.  Hothorn, F. Bretz & P. Westfall, 2014).
     xcld <- cld(x, level = level)
     mcletters <- xcld$mcletters
     msletters <- mcletters$monospacedLetters

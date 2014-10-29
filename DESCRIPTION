@@ -12,7 +12,7 @@ Description: Provides functions to evaluate audio chord estimation results from
     Information Retrieval Conference (Taipei, Taiwan, 2014).
 License: GPL-3
 Depends:
-    R (>= 3.1.1),
+    R (>= 3.1.1)
 Imports:
     Hmisc (>= 3.14),
     aod (>= 1.3),
