@@ -7,6 +7,8 @@ PlotACEClust(mirexace, ...)
 }
 \arguments{
 \item{mirexace}{a \code{mirexace} object}
+
+\item{...}{graphical arguments passed on to \code{plot}}
 }
 \description{
 \code{PlotACEClust} plots a hierarchical clustering of MIREX ACE

@@ -56,7 +56,7 @@ ACECor <- function(mirexace) {
                 w = .ranks.[, nlevels(algorithm) + 1])}
         else {
             .contrasts. <- contrasts(algorithm)
-            .vcov. <- vcov(mirexace$model)
+            .vcov. <- aod::vcov(mirexace$model)
             cov2cor(.contrasts. %*% .vcov.[-1, -1] %*% t(.contrasts.))}})
     .PCorr(cor.ace, nlevels(mirexace$model$data$song), mirexace$adjust)}
 
@@ -66,6 +66,7 @@ ACECor <- function(mirexace) {
 #' algorithms based on their inter-correlations in performance.
 #'
 #' @param mirexace a \code{mirexace} object
+#' @param ... graphical arguments passed on to \code{plot}
 #' @export
 PlotACEClust <- function(mirexace, ...) {
     plot(hclust(as.dist((1 - ACECor(mirexace))/2)),

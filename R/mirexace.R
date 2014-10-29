@@ -1,3 +1,6 @@
+## Appease R CMD check
+utils::globalVariables(c("duration", "song", "performance"))
+
 #' Read MIREX ACE Results
 #'
 #' \code{ReadACEResults} reads MIREX audio chord estimation results
@@ -150,12 +153,14 @@ summary.mirexace <- print # Summary would undo the choice of adjustment method.
 #' Plots a compact letter display with weighted response boxplots for
 #' MIREX ACE results.
 #'
+#' @param x a \code{mirexace} object
 #' @param level significance level for compact letter display
+#' @param ... graphical arguments passed on to \code{plot}
 #' @export
 plot.mirexace <- function(x, level = .005, ...) {
     ## Adapted from plot.cld() in version 1.3 of the multcomp package
     ## (T.  Hothorn, F. Bretz & P. Westfall, 2014).
-    xcld <- cld(x, level = level)
+    xcld <- multcomp::cld(x, level = level)
     mcletters <- xcld$mcletters
     msletters <- mcletters$monospacedLetters
     vletters <- sapply(

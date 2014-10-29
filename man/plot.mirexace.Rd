@@ -6,7 +6,11 @@
 \method{plot}{mirexace}(x, level = 0.005, ...)
 }
 \arguments{
+\item{x}{a \code{mirexace} object}
+
 \item{level}{significance level for compact letter display}
+
+\item{...}{graphical arguments passed on to \code{plot}}
 }
 \description{
 Plots a compact letter display with weighted response boxplots for
