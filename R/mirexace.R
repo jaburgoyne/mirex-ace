@@ -115,7 +115,7 @@ EvaluateACE <- function (
                 multcomp::mcp(algorithm = "Tukey")),
             test = multcomp::adjusted("fdr"))
         ## Use the standard post-hoc z-statistic for Friedman tests: see among
-        ## other Salvador García, Alberto Fernández, Julián Luengo & Francisco
+        ## other Salvador García, Alberto Fernández, Julián Luengo & Francisco
         ## Herrera (2010), “Advanced Nonparametric Tests for Multiple 
         ## Comparisons in the Design of Experiments in Computational 
         ## Intelligence and Data Mining: Experimental Analysis of Power”, 
@@ -160,7 +160,7 @@ summary.mirexace <- print # Summary would undo the choice of adjustment method.
 plot.mirexace <- function(x, level = .005, ...) {
     ## Adapted from plot.cld() in version 1.3 of the multcomp package
     ## (T.  Hothorn, F. Bretz & P. Westfall, 2014).
-    xcld <- multcomp::cld(x, level = level)
+    xcld <- multcomp::cld(x, level = level, decreasing = TRUE)
     mcletters <- xcld$mcletters
     msletters <- mcletters$monospacedLetters
     vletters <- sapply(
