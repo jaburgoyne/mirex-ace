@@ -17,43 +17,22 @@ ReadACEResults <- function (results.directory, analysis) {
     col.names <- c()
     col.classes <- c()
     if (is.segmentation) {
-        path <- file.path(results.directory, "resultsSegmentation")
-        col.names <- c("song", "", "under.segmentation", "over.segmentation")
-        col.classes <- c("factor", "NULL", "numeric", "numeric")}
+        path <- file.path(results.directory, "resultsSegmentation")}
     else {
-        path <- file.path(results.directory, paste0("resultsMirex", analysis))
-        col.names <- c(
-            "song", 
-            "performance", 
-            "duration",
-            rep("", 6))
-        col.classes <- c(
-            "factor", 
-            "numeric", 
-            "numeric", 
-            rep("NULL", 6))}
+        path <- file.path(results.directory, paste0("resultsMirex", analysis))}
     results <- data.frame()
     for (algo.csv in list.files(path, ".*\\.csv", full.names = TRUE)) {
         algo <- substr(basename(algo.csv), 1, nchar(basename(algo.csv)) - 4)
-        algo.results <- read.table(
+        csvfile <- read.csv(
             algo.csv,
-            skip = 2, # Johan's header has two lines
-            header = FALSE,
-            sep = ",",
-            dec = ".",
-            col.names = col.names, 
-            colClasses = col.classes)
+            skip = 1,
+            na.strings = "n/a")
+        algo.results <- data.frame(song = csvfile$File)
         if (is.segmentation) {
-            ## Replace over- and under-segmentation with the 
-            ## harmonic mean of their arithmetic inverses. 
-            algo.results$performance <- {
-                1 / (0.5 
-                     * (1/(1-algo.results$under.segmentation) 
-                        + 1/(1-algo.results$over.segmentation)))}
-            algo.results$over.segmentation <- c()}
+            algo.results$performance = csvfile$CombinedHammingMeasureHarmonic}
         else {
-            ## Rescale RCO results back to [0, 1].
-            algo.results$performance <- algo.results$performance/100}
+            algo.results$duration = csvfile$Duration..s.
+            algo.results$performance = csvfile$Pairwise.score..../100}
         results <- rbind(
             results, 
             cbind(algorithm = rep(algo, dim(algo.results)[1]), algo.results))}
